@@ -9,8 +9,8 @@ async function run() {
 
     const workspaceRoot = <string>process.env['GITHUB_WORKSPACE'] || process.cwd();
 
-    const settingsFile = core.getInput('settingsfile') || '.vscode/settings.json';
-    const yamlGlob = core.getInput('mdGlob') || '*.md';
+    const settingsFile = core.getInput('settingsfile');
+    const yamlGlob = core.getInput('mdGlob') || '**/*.md';
     const yamlSchemasJson = core.getInput('yamlSchemasJson');
 
     // Settings checking
