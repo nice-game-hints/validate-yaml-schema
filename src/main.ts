@@ -29,9 +29,9 @@ async function run() {
     }
     const schemas = {...settingsYamlSchemas, ...inlineYamlSchemas };
 
-    prettyLog('workspaceroot ' + workspaceRoot)
-    prettyLog('schemas')
-    prettyLog(JSON.stringify(schemas))
+    core.info('workspaceroot ' + workspaceRoot)
+    core.info('schemas')
+    core.info(JSON.stringify(schemas))
 
     const validationResults = await validateYaml(workspaceRoot, schemas, yamlGlob);
 

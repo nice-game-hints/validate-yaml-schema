@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as core from '@actions/core';
 import { glob } from 'glob'
 import { getYaml } from './file-reader';
 import { SchemaValidator } from './schema-validator';
@@ -42,9 +43,12 @@ export const validateYaml = async ( workspaceRoot: string, schemas: any, yamlGlo
                     const yamlDocument = await getYaml(path.join(workspaceRoot,filePath));
                     const result = await schemaValidator.isValid(yamlDocument);
                     prettyLog(filePath);
+                    core.debug(filePath)
                     return { filePath, valid: result };
                 } catch (e) {
                     prettyLog(filePath, e);
+                    core.error(filePath)
+                    core.error(e)
                     return { filePath, valid: false };
                 }
             })
