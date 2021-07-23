@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import { prettyLog } from './logger';
 
 async function run() {
+  core.info('start yaml validation in md files');
   try {
 
     const workspaceRoot = <string>process.env['GITHUB_WORKSPACE'] || process.cwd();
@@ -29,9 +30,9 @@ async function run() {
     }
     const schemas = {...settingsYamlSchemas, ...inlineYamlSchemas };
 
-    core.info('workspaceroot ' + workspaceRoot)
-    core.info('schemas')
-    core.info(JSON.stringify(schemas))
+    core.info('workspaceroot ' + workspaceRoot);
+    core.info('schemas');
+    core.info(JSON.stringify(schemas));
 
     const validationResults = await validateYaml(workspaceRoot, schemas, yamlGlob);
 
