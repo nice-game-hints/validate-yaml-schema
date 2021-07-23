@@ -9,7 +9,7 @@ export interface ValidationResult {
     valid: boolean;
 }
 
-export const validateYaml = async ( workspaceRoot: string, schemas: any): Promise<ValidationResult[]> => {
+export const validateYaml = async ( workspaceRoot: string, schemas: any, yamlGlob: string): Promise<ValidationResult[]> => {
 
     try {
 
@@ -22,7 +22,7 @@ export const validateYaml = async ( workspaceRoot: string, schemas: any): Promis
         //TODO: improve this implementation - e.g. use the glob patterns from the yaml.schemas settings        
         const filePaths = await new Promise<string[]>((c,e) => {
             glob(
-                '**/*.{yml,yaml}', 
+                yamlGlob, 
                 {
                     cwd : workspaceRoot,
                     silent : true,

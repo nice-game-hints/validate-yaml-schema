@@ -7,9 +7,10 @@ import * as fs from 'fs';
 async function run() {
   try {
 
-    const workspaceRoot = <string>process.env['GITHUB_WORKSPACE'];
+    const workspaceRoot = <string>process.env['GITHUB_WORKSPACE'] || process.cwd();
 
-    const settingsFile = core.getInput('settingsfile');
+    const settingsFile = core.getInput('settingsfile') || '.vscode/settings.json';
+    const yamlGlob = core.getInput('mdGlob') || '*.md';
     const yamlSchemasJson = core.getInput('yamlSchemasJson');
 
     // Settings checking
@@ -27,8 +28,8 @@ async function run() {
     }
     const schemas = {...settingsYamlSchemas, ...inlineYamlSchemas };
 
-   
-    const validationResults = await validateYaml(workspaceRoot, schemas);
+
+    const validationResults = await validateYaml(workspaceRoot, schemas, yamlGlob);
 
     const invalidResults = validationResults.filter(res => !res.valid).map(res => res.filePath);
 

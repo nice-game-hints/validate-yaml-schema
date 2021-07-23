@@ -4,7 +4,13 @@ import { InvalidFileError } from './errors';
 
 export const getYaml = async (filePath: string): Promise<TextDocument> => {
     try {
-        const fileContents = await fs.promises.readFile(filePath, { encoding: 'utf-8' });
+        let fileContents = await fs.promises.readFile(filePath, { encoding: 'utf-8' });
+        const reg = /^---\s*[\n\r]+(.*)[\n\r]+---\s*/s.exec(fileContents)
+        if (reg) {
+            fileContents = reg[1]
+        } else {
+            fileContents = ''
+        }
         return TextDocument.create(
             filePath,
             'yaml',
