@@ -3,6 +3,7 @@ import { validateYaml } from './yaml-validator';
 import { getJson } from './file-reader';
 import * as path from 'path';
 import * as fs from 'fs';
+import { prettyLog } from './logger';
 
 async function run() {
   try {
@@ -28,6 +29,9 @@ async function run() {
     }
     const schemas = {...settingsYamlSchemas, ...inlineYamlSchemas };
 
+    prettyLog('workspaceroot ' + workspaceRoot)
+    prettyLog('schemas')
+    prettyLog(JSON.stringify(schemas))
 
     const validationResults = await validateYaml(workspaceRoot, schemas, yamlGlob);
 

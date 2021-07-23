@@ -8,6 +8,9 @@ inputs:
   yamlSchemasJson:
     description: 'The yaml.schemas config as inline JSON'
     required: false
+  mdGlob:
+    description: 'glob of all the md files to go through'
+    required: false
 outputs:
   invalidFiles: 
     description: 'Comma separated list of files that failed the schema validation'
